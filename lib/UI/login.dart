@@ -1,5 +1,7 @@
+import 'package:dokan/UI/registrationPage.dart';
 import 'package:dokan/widget/default_text_form_field.dart';
 import 'package:dokan/widget/my_colors.dart';
+import 'package:dokan/widget/socialIcon.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         backgroundColor: Color.fromRGBO(248, 248, 248, 1),
         body: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 20),
           child: Column(
             children: [
               SizedBox(
@@ -55,8 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
-              SizedBox(
-                height: 50,
+              const SizedBox(
+                height: 40,
               ),
               Form(
                 key: _formKey,
@@ -122,20 +125,63 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               const SizedBox(
-                height: 70,
+                height: 60,
               ),
               Container(
                 alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height / 15,
-                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 12,
+                width: MediaQuery.of(context).size.width / 1.2,
                 decoration: BoxDecoration(
                   color: MyColors().mainColor,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Text(
                   'Login',
-                  style: TextStyle(color: MyColors().white, fontSize: 16),
+                  style: TextStyle(
+                      color: MyColors().white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialIcon(
+                    image: AssetImage('assets/images/facebook.png'),
+                  ),
+                  SocialIcon(
+                    image: AssetImage('assets/images/search.png'),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegistrationPage()),
+                      );
+                    },
+                    child:const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Create New Account',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromRGBO(56, 60, 64, 1),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
