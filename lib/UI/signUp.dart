@@ -1,4 +1,5 @@
 import 'package:dokan/UI/login.dart';
+import 'package:dokan/services/repositories/repositories.dart';
 import 'package:dokan/widget/default_text_form_field.dart';
 import 'package:dokan/widget/socialIcon.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,16 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   //==========Here is the textField=============//
-  TextEditingController mail = TextEditingController();
+  TextEditingController userName = TextEditingController();
+  TextEditingController userMail = TextEditingController();
   TextEditingController userPass = TextEditingController();
+  TextEditingController confirmPass = TextEditingController();
   bool obcure = true;
+  clearData() {
+    userName.clear();
+    userMail.clear();
+    userPass.clear();
+  }
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -91,7 +99,7 @@ class _SignUpState extends State<SignUp> {
                             text: "Name",
                             imageUrl: 'assets/icons/user.svg',
                             isvisibleicon: false,
-                            controller: mail,
+                            controller: userName,
                             inputType: TextInputType.emailAddress,
                             emptyMessage: 'Please enter your Name',
                             obscure: false,
@@ -110,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                             text: "Email",
                             imageUrl: 'assets/icons/email-svgrepo-com.svg',
                             isvisibleicon: false,
-                            controller: mail,
+                            controller: userMail,
                             inputType: TextInputType.emailAddress,
                             emptyMessage: 'Please enter your Email',
                             obscure: false,
@@ -148,7 +156,7 @@ class _SignUpState extends State<SignUp> {
                             text: 'Confirm Password',
                             imageUrl: 'assets/icons/lock.svg',
                             isvisibleicon: false,
-                            controller: userPass,
+                            controller: confirmPass,
                             inputType: TextInputType.text,
                             emptyMessage: 'Please enter your Confirm password',
                             obscure: false,
@@ -159,26 +167,84 @@ class _SignUpState extends State<SignUp> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+               
                 const SizedBox(
                   height: 60,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height / 12,
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  decoration: BoxDecoration(
-                    color: MyColors().mainColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        color: MyColors().white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                InkWell(
+                  onTap: () async {
+                    if (userName.text.isEmpty || userMail.text.isEmpty) {
+                      // Add your validation message here
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            iconColor: MyColors().mainColor,
+                            content: const Text(
+                                "Please fill in both username and email fields !"),
+                            actions: [
+                              TextButton(
+                                child: const Text("OK"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (userPass.text != confirmPass.text) {
+                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            iconColor: MyColors().mainColor,
+                            content: const Text(
+                                "The passwords provided do not match. Please make sure they are the same."),
+                            actions: [
+                              TextButton(
+                                child: const Text("OK"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      Repositoris().userRegisterRP(
+                          userName.text, userMail.text, userPass.text);
+                      clearData();
+                      Navigator.of(context).pop();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text(
+                            'User Registration Successful, Now Log In.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: MyColors().mainColor,
+                          duration: const Duration(seconds: 5),
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height / 12,
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    decoration: BoxDecoration(
+                      color: MyColors().mainColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          color: MyColors().white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -250,3 +316,38 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+
+
+                  // GestureDetector(
+                  //   onTap: () async {
+                  //     if (mail.text.isEmpty || userPass.text.isEmpty) {
+                  //       // Add your validation message here
+                  //       showDialog(
+                  //         context: context,
+                  //         builder: (BuildContext context) {
+                  //           return AlertDialog(
+                  //             iconColor: MyColors().mainColor,
+                  //             content: const Text(
+                  //                 "Please fill in both email and password fields !"),
+                  //             actions: [
+                  //               TextButton(
+                  //                 child: const Text("OK"),
+                  //                 onPressed: () {
+                  //                   Navigator.of(context).pop();
+                  //                 },
+                  //               ),
+                  //             ],
+                  //           );
+                  //         },
+                  //       );
+                  //     } else {
+                  //       Repositoris().userLoginRP(mail.text, userPass.text);
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(builder: (context) => LoginPage()),
+                          
+                  //       );
+                        
+                  //     }
+                  //   },
+                  // ),

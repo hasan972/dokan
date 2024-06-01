@@ -1,4 +1,5 @@
 import 'package:dokan/UI/signUp.dart';
+import 'package:dokan/services/repositories/repositories.dart';
 import 'package:dokan/widget/default_text_form_field.dart';
 import 'package:dokan/widget/my_colors.dart';
 import 'package:dokan/widget/socialIcon.dart';
@@ -13,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //==========Here is the textField=============//
-  TextEditingController mail = TextEditingController();
+  TextEditingController name = TextEditingController();
   TextEditingController userPass = TextEditingController();
   bool obcure = true;
 
@@ -73,10 +74,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Card(
                         child: DefaultTextFormField(
-                          text: "Email",
-                          imageUrl: 'assets/icons/email-svgrepo-com.svg',
+                          text: "Name",
+                          imageUrl: 'assets/icons/user.svg',
                           isvisibleicon: false,
-                          controller: mail,
+                          controller: name,
                           inputType: TextInputType.emailAddress,
                           emptyMessage: 'Please enter your Email',
                           obscure: false,
@@ -127,20 +128,60 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 60,
               ),
-              Container(
-                alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height / 12,
-                width: MediaQuery.of(context).size.width / 1.2,
-                decoration: BoxDecoration(
-                  color: MyColors().mainColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                      color: MyColors().white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
+              InkWell(
+                onTap: () async {
+                  if (name.text.isEmpty || userPass.text.isEmpty) {
+                    // Add your validation message here
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          iconColor: MyColors().mainColor,
+                          content: const Text(
+                              "Please fill in both email and password fields !"),
+                          actions: [
+                            TextButton(
+                              child: const Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    Repositoris().userLoginRP(name.text, userPass.text);
+
+                    //Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                          ' Log In.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: MyColors().mainColor,
+                        duration: const Duration(seconds: 5),
+                      ),
+                    );
+                  }
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height / 12,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  decoration: BoxDecoration(
+                    color: MyColors().mainColor,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                        color: MyColors().white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -167,10 +208,11 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SignUp()),
+                          builder: (context) => SignUp(),
+                        ),
                       );
                     },
-                    child:const Align(
+                    child: const Align(
                       alignment: Alignment.center,
                       child: Text(
                         'Create New Account',
