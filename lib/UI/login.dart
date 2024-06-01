@@ -1,4 +1,4 @@
-import 'package:dokan/UI/registrationPage.dart';
+import 'package:dokan/UI/signUp.dart';
 import 'package:dokan/widget/default_text_form_field.dart';
 import 'package:dokan/widget/my_colors.dart';
 import 'package:dokan/widget/socialIcon.dart';
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegistrationPage()),
+                            builder: (context) => SignUp()),
                       );
                     },
                     child:const Align(
