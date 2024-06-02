@@ -25,7 +25,7 @@ class UserDataProvider {
   Future<http.Response> userLoginDP(
       String name, String password) async {
     http.Response response = await http.post(
-      Uri.parse(ApiList.signUpAPI),
+      Uri.parse(ApiList.logInAPI),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },

@@ -12,6 +12,7 @@ class Repositoris{
       http.Response response = await UserDataProvider().userRegisterDP(name, email, password);
       returnData = jsonDecode(response.body);
       if(returnData["code"] == 200 ){
+        print(returnData);
         return returnData;
       }
     }on Exception catch (e){
@@ -23,16 +24,20 @@ class Repositoris{
 Future userLoginRP(
   String name, String password
   )async{
-    var returnData;
+    var returnDataa;
     try{
       http.Response response = await UserDataProvider().userLoginDP( name, password);
-      returnData = jsonDecode(response.body);
-      if(returnData["Status"] == 200 ){
-        return returnData;
+      returnDataa = jsonDecode(response.body);
+      if(response.statusCode == 200 ){
+        // print(type(returnDataa['token']));
+        print(returnDataa['token'].runtimeType);
+        print(returnDataa);
+        return returnDataa;
+        
       }
     }on Exception catch (e){
       throw Exception(e);
     }
-    return returnData;
+    return returnDataa;
   }
 }

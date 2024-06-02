@@ -14,9 +14,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //==========Here is the textField=============//
-  TextEditingController name = TextEditingController();
+  TextEditingController userName = TextEditingController();
   TextEditingController userPass = TextEditingController();
   bool obcure = true;
+   clearData() {
+    userName.clear();
+    userPass.clear();
+  }
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -77,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                           text: "Name",
                           imageUrl: 'assets/icons/user.svg',
                           isvisibleicon: false,
-                          controller: name,
+                          controller: userName,
                           inputType: TextInputType.emailAddress,
                           emptyMessage: 'Please enter your Email',
                           obscure: false,
@@ -130,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               InkWell(
                 onTap: () async {
-                  if (name.text.isEmpty || userPass.text.isEmpty) {
+                  if (userName.text.isEmpty || userPass.text.isEmpty) {
                     // Add your validation message here
                     showDialog(
                       context: context,
@@ -151,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     );
                   } else {
-                    Repositoris().userLoginRP(name.text, userPass.text);
-
+                    Repositoris().userLoginRP(userName.text, userPass.text);
+                     clearData();
                     //Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
