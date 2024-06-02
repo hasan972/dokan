@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class MyColors {
   Color mainColor = Color.fromRGBO(247, 95, 85, 1);
 
-  Color mainShadeColor = const Color.fromARGB(95, 75, 139, 216);
-  Color mainShadeColorNow = const Color(0xffe1eeff);
+  Color checklist = const Color.fromRGBO(255, 112, 138, 1);
+  Color applyButton = const Color.fromRGBO(26, 188, 156, 1);
   Color mainShadeColorSecondNow = const Color.fromARGB(255, 204, 225, 253);
   Color mainShadeColorSecond = const Color.fromARGB(95, 13, 66, 131);
   Color darkGrayColor = const Color(0xff41454E);
