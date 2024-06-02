@@ -1,5 +1,5 @@
 import 'package:dokan/UI/login.dart';
-import 'package:dokan/services/repositories/repositories.dart';
+import 'package:dokan/services/repositories/data_response.dart';
 import 'package:dokan/widget/default_text_form_field.dart';
 import 'package:dokan/widget/socialIcon.dart';
 import 'package:flutter/material.dart';
@@ -199,6 +199,7 @@ class _SignUpState extends State<SignUp> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             iconColor: MyColors().mainColor,
+                            title: Text("Error"),
                             content: const Text(
                                 "The passwords provided do not match. Please make sure they are the same."),
                             actions: [
@@ -316,38 +317,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
-
-                  // GestureDetector(
-                  //   onTap: () async {
-                  //     if (mail.text.isEmpty || userPass.text.isEmpty) {
-                  //       // Add your validation message here
-                  //       showDialog(
-                  //         context: context,
-                  //         builder: (BuildContext context) {
-                  //           return AlertDialog(
-                  //             iconColor: MyColors().mainColor,
-                  //             content: const Text(
-                  //                 "Please fill in both email and password fields !"),
-                  //             actions: [
-                  //               TextButton(
-                  //                 child: const Text("OK"),
-                  //                 onPressed: () {
-                  //                   Navigator.of(context).pop();
-                  //                 },
-                  //               ),
-                  //             ],
-                  //           );
-                  //         },
-                  //       );
-                  //     } else {
-                  //       Repositoris().userLoginRP(mail.text, userPass.text);
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(builder: (context) => LoginPage()),
-                          
-                  //       );
-                        
-                  //     }
-                  //   },
-                  // ),

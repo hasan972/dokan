@@ -1,9 +1,11 @@
+import 'package:dokan/UI/product.dart';
 import 'package:dokan/UI/signUp.dart';
-import 'package:dokan/services/repositories/repositories.dart';
+import 'package:dokan/services/repositories/data_response.dart';
 import 'package:dokan/widget/default_text_form_field.dart';
 import 'package:dokan/widget/my_colors.dart';
 import 'package:dokan/widget/socialIcon.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,8 +18,30 @@ class _LoginPageState extends State<LoginPage> {
   //==========Here is the textField=============//
   TextEditingController userName = TextEditingController();
   TextEditingController userPass = TextEditingController();
+  SharedPreferences? prefs;
+  String? token;
   bool obcure = true;
-   clearData() {
+  @override
+  void initState() {
+    // TODO: implement initState
+    SharedPreferences.getInstance().then((prefs) {
+      token = prefs.getString('token');
+      if (token != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProductPage(),
+          ),
+        );
+      }
+      // print(token);
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  clearData() {
     userName.clear();
     userPass.clear();
   }
@@ -141,6 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           iconColor: MyColors().mainColor,
+                          title: Text("Error"),
                           content: const Text(
                               "Please fill in both email and password fields !"),
                           actions: [
@@ -155,9 +180,22 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     );
                   } else {
-                    Repositoris().userLoginRP(userName.text, userPass.text);
-                     clearData();
-                    //Navigator.of(context).pop();
+                    // Map<String, dynamic> returnDataa = await Repositoris()
+                    //     .userLoginRP(context,userName.text, userPass.text);
+                    Map<String, dynamic>? returnDataa = await Repositoris().userLoginRP(context, userName.text, userPass.text);
+
+
+                    prefs = await SharedPreferences.getInstance();
+                    await prefs!.setString('token', returnDataa?['token']);
+
+                    clearData();
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductPage(),
+                      ),
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: const Text(
