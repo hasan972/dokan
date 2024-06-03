@@ -1,5 +1,6 @@
 import 'package:dokan/widget/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfile extends StatefulWidget {
   @override
@@ -12,8 +13,28 @@ class _MyProfileState extends State<MyProfile> {
   TextEditingController street = TextEditingController();
   TextEditingController zip = TextEditingController();
   bool _isExpanded = false;
+   SharedPreferences? prefs;
+  String? token;
+  String? user_email;
+  String? user_nicename;
+  String? user_display_name;
 
   @override
+   void initState() {
+    
+    // TODO: implement initState
+    SharedPreferences.getInstance().then((prefs) {
+      token = prefs.getString('token');
+      user_email = prefs.getString('user_email');
+      user_nicename = prefs.getString('user_nicename');
+      user_display_name = prefs.getString('user_display_name');
+      
+      //print(token);
+      setState(() {});
+    });
+
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(248, 248, 250, 1),
@@ -41,7 +62,7 @@ class _MyProfileState extends State<MyProfile> {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Rakibul Hasan',
+              '$user_display_name',
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -49,7 +70,7 @@ class _MyProfileState extends State<MyProfile> {
             ),
             SizedBox(height: 2),
             Text(
-              'hasan@gmail.com',
+              '$user_email',
               style: TextStyle(fontSize: 14.0, color: MyColors().font),
             ),
             SizedBox(height: 20.0),
@@ -87,7 +108,7 @@ class _MyProfileState extends State<MyProfile> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: 'hasan@gmail.com',
+                                labelText: '$user_email',
                                 labelStyle: TextStyle(
                                     color: Color.fromRGBO(38, 50, 56, 1),
                                     fontSize: 14),
@@ -104,7 +125,7 @@ class _MyProfileState extends State<MyProfile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Full Name',
+                              'Nick Name',
                               style: TextStyle(
                                 color: Color.fromRGBO(38, 50, 56, 1),
                               ),
@@ -115,7 +136,7 @@ class _MyProfileState extends State<MyProfile> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Hasan',
+                                labelText: '$user_nicename',
                                 labelStyle: TextStyle(
                                     color: Color.fromRGBO(38, 50, 56, 1),
                                     fontSize: 14),
@@ -171,7 +192,7 @@ class _MyProfileState extends State<MyProfile> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: '77787',
+                                labelText: '1212',
                                 labelStyle: TextStyle(
                                     color: Color.fromRGBO(38, 50, 56, 1),
                                     fontSize: 14),

@@ -20,12 +20,17 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController userPass = TextEditingController();
   SharedPreferences? prefs;
   String? token;
+  String? user_email;
+  String? user_nicename;
+  String? user_display_name;
   bool obcure = true;
   @override
   void initState() {
     // TODO: implement initState
     SharedPreferences.getInstance().then((prefs) {
       token = prefs.getString('token');
+      user_display_name = prefs.getString('user_display_name');
+     
       if (token != null) {
         Navigator.push(
           context,
@@ -186,7 +191,12 @@ class _LoginPageState extends State<LoginPage> {
 
 
                     prefs = await SharedPreferences.getInstance();
+                    
                     await prefs!.setString('token', returnDataa?['token']);
+                    await prefs!.setString('user_email', returnDataa?['user_email']);
+                    await prefs!.setString('user_nicename', returnDataa?['user_nicename']);
+                    await prefs!.setString('user_display_name', returnDataa?['user_display_name']);
+                    
 
                     clearData();
 
