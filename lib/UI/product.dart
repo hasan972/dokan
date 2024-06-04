@@ -1,6 +1,8 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:dokan/UI/myProfile.dart';
+import 'package:dokan/data/product_data.dart';
+import 'package:dokan/model/product_model.dart';
 import 'package:dokan/widget/Item_widget.dart';
 import 'package:dokan/widget/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,16 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  int selectedIndex = 0;
+  // List<Product> itemsList = productFromJson(data);
+  int selectedIndex = 2;
+
+  @override
+  void initState() {
+    super.initState();
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +35,10 @@ class _ProductPageState extends State<ProductPage> {
         title: const Text(
           'Product List',
           textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromRGBO(34, 36, 85, 1),),
-
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(34, 36, 85, 1),
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -235,6 +248,8 @@ class _ProductPageState extends State<ProductPage> {
         backgroundColor: const Color.fromRGBO(232, 229, 229, 1),
         buttonBackgroundColor: MyColors().mainColor,
         color: MyColors().white,
+        index: selectedIndex,
+        height: 60,
         items: [
           CurvedNavigationBarItem(
             child: Icon(
@@ -271,11 +286,16 @@ class _ProductPageState extends State<ProductPage> {
           CurvedNavigationBarItem(
             child: GestureDetector(
               onTap: () {
-                // Navigate to MyProfile page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyProfile()),
-                );
+                if (selectedIndex == 4) {
+                  setState(() {
+                    selectedIndex = 4;
+                  });
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyProfile()),
+                  );
+                }
               },
               child: Icon(
                 Icons.person,

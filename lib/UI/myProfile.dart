@@ -1,3 +1,7 @@
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:dokan/UI/login.dart';
+import 'package:dokan/UI/product.dart';
 import 'package:dokan/widget/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,33 +17,38 @@ class _MyProfileState extends State<MyProfile> {
   TextEditingController street = TextEditingController();
   TextEditingController zip = TextEditingController();
   bool _isExpanded = false;
-   SharedPreferences? prefs;
+  SharedPreferences? prefs;
   String? token;
   String? user_email;
   String? user_nicename;
   String? user_display_name;
 
   @override
-   void initState() {
-    
+  void initState() {
     // TODO: implement initState
     SharedPreferences.getInstance().then((prefs) {
       token = prefs.getString('token');
       user_email = prefs.getString('user_email');
       user_nicename = prefs.getString('user_nicename');
       user_display_name = prefs.getString('user_display_name');
-      
+
       //print(token);
       setState(() {});
     });
 
     super.initState();
   }
+  void clearSharedPreferencesData() async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.clear(); // Clear all SharedPreferences data
+  }
+
+  int selectedIndex = 2;
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(248, 248, 250, 1),
+      backgroundColor: Color.fromARGB(255, 239, 239, 241),
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(248, 248, 250, 1),
+        backgroundColor: Color.fromARGB(255, 239, 239, 241),
         automaticallyImplyLeading: false,
         title: Text(
           'My Account',
@@ -293,8 +302,107 @@ class _MyProfileState extends State<MyProfile> {
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      clearSharedPreferencesData();
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(80, 40),
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(
+                          width: 0.69,
+                          color: MyColors().font,
+                        ),
+                      ),
+                      elevation: 0,
+                      primary: Colors.white,
+                      onPrimary: Colors.transparent,
+                    ),
+                    child: Text(
+                      'Logout',
+                      style: TextStyle(color: MyColors().font, fontSize: 17),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: const Color.fromARGB(255, 239, 239, 241),
+        buttonBackgroundColor: MyColors().mainColor,
+        color: MyColors().white,
+        index: selectedIndex,
+        height: 60,
+        items: [
+          CurvedNavigationBarItem(
+            child: GestureDetector(
+              onTap: () {
+                if (selectedIndex == 0) {
+                  setState(() {
+                    selectedIndex = 0;
+                  });
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProductPage()),
+                  );
+                }
+              },
+              child: Icon(
+                Icons.home_outlined,
+                color: selectedIndex == 4
+                    ? Colors.white
+                    : Color.fromRGBO(110, 127, 170, 1),
+              ),
+            ),
+          ),
+          CurvedNavigationBarItem(
+            child: Icon(
+              Icons.border_all,
+              color: selectedIndex == 1
+                  ? Colors.white
+                  : Color.fromRGBO(110, 127, 170, 1),
+            ),
+          ),
+          CurvedNavigationBarItem(
+            child: Icon(
+              Icons.search,
+              color: selectedIndex == 2
+                  ? Colors.white
+                  : Color.fromRGBO(110, 127, 170, 1),
+            ),
+          ),
+          CurvedNavigationBarItem(
+            child: Icon(
+              Icons.shopping_cart,
+              color: selectedIndex == 3
+                  ? Colors.white
+                  : Color.fromRGBO(110, 127, 170, 1),
+            ),
+          ),
+          CurvedNavigationBarItem(
+            child: Icon(Icons.person,
+                color: selectedIndex == 4
+                    ? MyColors().mainColor
+                    : MyColors().mainColor),
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
       ),
     );
   }

@@ -30,12 +30,12 @@ class _LoginPageState extends State<LoginPage> {
     SharedPreferences.getInstance().then((prefs) {
       token = prefs.getString('token');
       user_display_name = prefs.getString('user_display_name');
-     
+
       if (token != null) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  ProductPage(),
+            builder: (context) => ProductPage(),
           ),
         );
       }
@@ -187,16 +187,18 @@ class _LoginPageState extends State<LoginPage> {
                   } else {
                     // Map<String, dynamic> returnDataa = await Repositoris()
                     //     .userLoginRP(context,userName.text, userPass.text);
-                    Map<String, dynamic>? returnDataa = await Repositoris().userLoginRP(context, userName.text, userPass.text);
-
+                    Map<String, dynamic>? returnDataa = await Repositoris()
+                        .userLoginRP(context, userName.text, userPass.text);
 
                     prefs = await SharedPreferences.getInstance();
-                    
+
                     await prefs!.setString('token', returnDataa?['token']);
-                    await prefs!.setString('user_email', returnDataa?['user_email']);
-                    await prefs!.setString('user_nicename', returnDataa?['user_nicename']);
-                    await prefs!.setString('user_display_name', returnDataa?['user_display_name']);
-                    
+                    await prefs!
+                        .setString('user_email', returnDataa?['user_email']);
+                    await prefs!.setString(
+                        'user_nicename', returnDataa?['user_nicename']);
+                    await prefs!.setString(
+                        'user_display_name', returnDataa?['user_display_name']);
 
                     clearData();
 
@@ -204,17 +206,6 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ProductPage(),
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text(
-                          ' Log In.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        backgroundColor: MyColors().mainColor,
-                        duration: const Duration(seconds: 5),
                       ),
                     );
                   }
