@@ -67,7 +67,7 @@ class _MyProfileState extends State<MyProfile> {
             CircleAvatar(
               radius: 50.0,
               backgroundImage: AssetImage(
-                  'assets/images/profile.png'), // Replace with your image
+                  'assets/images/profile.png'), 
             ),
             SizedBox(height: 20.0),
             Text(
@@ -250,7 +250,11 @@ class _MyProfileState extends State<MyProfile> {
                               width: 5,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                user_display_name = name.text;
+                                user_email = mail.text;
+                               setState(() {});
+                              },
                               style: ElevatedButton.styleFrom(
                                 fixedSize: Size(140, 50),
                                 padding: EdgeInsets.zero,
@@ -269,6 +273,7 @@ class _MyProfileState extends State<MyProfile> {
                                 'Save',
                                 style: TextStyle(fontSize: 17),
                               ),
+                              
                             ),
                           ],
                         ),

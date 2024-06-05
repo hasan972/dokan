@@ -113,8 +113,8 @@ import 'package:flutter/material.dart';
 class ItemWidget extends StatelessWidget {
   final String imagePath;
   final String description;
-  final double originalPrice;
-  final double discountedPrice;
+  final int originalPrice;
+  final int discountedPrice;
   final int rating;
 
   const ItemWidget({
@@ -172,22 +172,22 @@ class ItemWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
                       '\$$originalPrice',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: MyColors().font,
                         decoration: TextDecoration.lineThrough,
                       ),
                     ),
-                    SizedBox(width: 5),
+                    //SizedBox(width: 5),
                     Text(
                       '\$$discountedPrice',
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: MyColors().blackColor,
                       ),
@@ -199,7 +199,7 @@ class ItemWidget extends StatelessWidget {
                 // padding: EdgeInsets.only(left: 10),
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 12),
                   child: Row(
                     children: List.generate(
                       rating,

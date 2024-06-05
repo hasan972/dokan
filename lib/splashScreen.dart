@@ -8,14 +8,12 @@ class splashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AnimatedSplashScreen(
-        duration: 2000,
-        splash: Image.asset('assets/images/dokan.PNG'),
-        nextScreen: LoginPage() ,
-        splashTransition: SplashTransition.fadeTransition,
-         backgroundColor: const Color.fromRGBO(248, 248, 248, 1)
-      ),
+    return AnimatedSplashScreen(
+      duration: 2000,
+      splash: Image.asset('assets/images/dokan.PNG'),
+      nextScreen: LoginPage() ,
+      splashTransition: SplashTransition.fadeTransition,
+       backgroundColor: const Color.fromRGBO(248, 248, 248, 1)
     );
   }
 }
