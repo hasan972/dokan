@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   String? user_display_name;
   bool obcure = true;
   bool _isLoading = false;
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         iconColor: MyColors().mainColor,
-                        title: Text("Error"),
+                        title: const Text("Error"),
                         content: const Text(
                             "Please fill in both email and password fields !"),
                         actions: [

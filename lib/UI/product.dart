@@ -1,8 +1,6 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:dokan/UI/myProfile.dart';
-import 'package:dokan/data/product_data.dart';
-import 'package:dokan/model/product_model.dart';
 import 'package:dokan/widget/Item_widget.dart';
 import 'package:dokan/widget/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +19,14 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void initState() {
     super.initState();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(232, 229, 229, 1),
+      backgroundColor: const Color.fromRGBO(232, 229, 229, 1),
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(232, 229, 229, 1),
+        backgroundColor: const Color.fromRGBO(232, 229, 229, 1),
         automaticallyImplyLeading: false,
         title: const Text(
           'Product List',
@@ -79,11 +75,11 @@ class _ProductPageState extends State<ProductPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
-                                  ChecklistItem(text: 'Newest'),
-                                  ChecklistItem(text: 'Oldest'),
-                                  ChecklistItem(text: 'Price low > High'),
-                                  ChecklistItem(text: 'Price High > Low'),
-                                  ChecklistItem(text: 'Best Selling'),
+                                  const ChecklistItem(text: 'Newest'),
+                                  const ChecklistItem(text: 'Oldest'),
+                                  const ChecklistItem(text: 'Price low > High'),
+                                  const ChecklistItem(text: 'Price High > Low'),
+                                  const ChecklistItem(text: 'Best Selling'),
                                   const SizedBox(height: 20.0),
                                   Row(
                                     mainAxisAlignment:
@@ -132,7 +128,7 @@ class _ProductPageState extends State<ProductPage> {
                                           primary: MyColors().applyButton,
                                           onPrimary: MyColors().white,
                                         ),
-                                        child: Text(
+                                        child: const Text(
                                           'Apply',
                                           style: TextStyle(fontSize: 17),
                                         ),
@@ -193,24 +189,24 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
             ),
-            ItemWidget(
-              imagePath: 'assets/images/2.png',
+            const ItemWidget(
+              //imagePath: 'assets/images/2.png',
               description:
                   'Water-resistant, Heart Rate Monitor, GPS, Bluetooth 5.0, Fitness Tracker, OLED Display',
               originalPrice: 100,
               discountedPrice: 90,
               rating: 5,
             ),
-            ItemWidget(
-              imagePath: 'assets/images/4.png',
+            const ItemWidget(
+              // imagePath: 'assets/images/4.png',
               description:
                   ' Heart Rate Monitor, GPS, Bluetooth 5.0, Fitness Tracker, OLED Display',
               originalPrice: 110,
               discountedPrice: 100,
               rating: 4,
             ),
-            ItemWidget(
-              imagePath: 'assets/images/3.png',
+            const ItemWidget(
+              //imagePath: 'assets/images/3.png',
               description:
                   'Leather, Crossbody, Zip Closure, Interior Pockets, Adjustable Strap, Designer Logo',
               originalPrice: 200,
@@ -218,7 +214,7 @@ class _ProductPageState extends State<ProductPage> {
               rating: 3,
             ),
             const ItemWidget(
-              imagePath: 'assets/images/1.png',
+              //imagePath: 'assets/images/1.png',
               description:
                   'Leather, Crossbody, Zip Closure, Interior Pockets, Adjustable Strap, Designer Logo',
               originalPrice: 150,
@@ -226,7 +222,7 @@ class _ProductPageState extends State<ProductPage> {
               rating: 5,
             ),
             const ItemWidget(
-              imagePath: 'assets/images/1.png',
+              //imagePath: 'assets/images/1.png',
               description:
                   'Water-resistant, Heart Rate Monitor, GPS, Bluetooth 5.0, Fitness Tracker, OLED Display',
               originalPrice: 110,
@@ -234,7 +230,7 @@ class _ProductPageState extends State<ProductPage> {
               rating: 5,
             ),
             const ItemWidget(
-              imagePath: 'assets/images/3.png',
+              // imagePath: 'assets/images/3.png',
               description:
                   'Leather, Crossbody, Zip Closure, Interior Pockets, Adjustable Strap, Designer Logo',
               originalPrice: 110,
@@ -245,7 +241,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: const Color.fromRGBO(232, 229, 229, 1),
+        backgroundColor: Colors.transparent,
         buttonBackgroundColor: MyColors().mainColor,
         color: MyColors().white,
         index: selectedIndex,

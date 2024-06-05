@@ -111,7 +111,7 @@ import 'package:dokan/widget/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class ItemWidget extends StatelessWidget {
-  final String imagePath;
+  //final String imagePath;
   final String description;
   final int originalPrice;
   final int discountedPrice;
@@ -119,7 +119,7 @@ class ItemWidget extends StatelessWidget {
 
   const ItemWidget({
     Key? key,
-    required this.imagePath,
+   // required this.imagePath,
     required this.description,
     required this.originalPrice,
     required this.discountedPrice,
@@ -135,7 +135,7 @@ class ItemWidget extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       children:  [
-        for (int i = 0; i<2;i++)
+        for (int i = 1; i<= 4;i++)
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: BoxDecoration(
@@ -150,7 +150,7 @@ class ItemWidget extends StatelessWidget {
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
-                  child: Image.asset(imagePath),
+                  child: Image.asset('assets/images/$i.png'),
                   height: 125,
                   width: 125,
                 ),
