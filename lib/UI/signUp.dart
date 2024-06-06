@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
         // padding: EdgeInsets.fromLTRB(10, 0, 5, 20),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.fromLTRB(10,30,10,0),
           child: Column(
             children: [
               Container(
@@ -220,20 +220,22 @@ class _SignUpState extends State<SignUp> {
                   } else {
                     Repositoris().userRegisterRP(
                         userName.text, userMail.text, userPass.text);
-                   // clearData();
-                    Navigator.of(context).pop();
-                     AllService().toastMessage('User Registration Successful, Now Log In', 14);
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(
-                    //     content: const Text(
-                    //       'User Registration Successful, Now Log In.',
-                    //       textAlign: TextAlign.center,
-                    //       style: TextStyle(color: Colors.white),
-                    //     ),
-                    //     backgroundColor: MyColors().mainColor,
-                    //     duration: const Duration(seconds: 5),
-                    //   ),
-                    // );
+                    Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                          'User Registration Successful, Now Log In.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: MyColors().mainColor,
+                        duration: const Duration(seconds: 5),
+                      ),
+                    );
                   }
                 },
                 child: Container(

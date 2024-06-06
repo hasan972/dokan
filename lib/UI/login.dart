@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   String? user_nicename;
   String? user_display_name;
   bool obcure = true;
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   @override
   void initState() {
@@ -42,8 +42,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       }
+
       // print(token);
-      setState(() {});
+      setState(() {
+       //clearData();
+      });
     });
 
     super.initState();
@@ -181,11 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text("OK"),
                             onPressed: () {
                               Navigator.of(context).pop();
-                              setState(
-                                () {
-                                  _isLoading = false;
-                                },
-                              );
+                              clearData();
                             },
                           ),
                         ],
@@ -193,12 +192,6 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   );
                 } else {
-                  setState(
-                    () {
-                      _isLoading = true;
-                    },
-                  );
-
                   Map<String, dynamic>? returnDataa = await Repositoris()
                       .userLoginRP(context, userName.text, userPass.text);
 
@@ -217,38 +210,26 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context) => ProductPage(),
                     ),
                   );
-                  setState(() {
-                    _isLoading = false;
-                  });
+
                   AllService().toastMessage('Login Successfully', 14);
                 }
               },
-              child: _isLoading
-                  ? Container(
-                      color: MyColors().mainColor,
-                      alignment: Alignment.center,
-                      height: MediaQuery.of(context).size.height / 12,
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      child: CircularProgressIndicator(
-                        color: MyColors().white,
-                      ),
-                    )
-                  : Container(
-                      alignment: Alignment.center,
-                      height: MediaQuery.of(context).size.height / 12,
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      decoration: BoxDecoration(
-                        color: MyColors().mainColor,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                            color: MyColors().white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+              child: Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height / 12,
+                width: MediaQuery.of(context).size.width / 1.2,
+                decoration: BoxDecoration(
+                  color: MyColors().mainColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                      color: MyColors().white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
